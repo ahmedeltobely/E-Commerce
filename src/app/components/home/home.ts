@@ -1,5 +1,4 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 import { Categories } from '../../core/services/categories/categories';
 import { Subject, takeUntil } from 'rxjs';
 import { category, GetCategoriesRes } from '../../shared/models/categories/getCategoriesRes';
@@ -8,7 +7,7 @@ import { ProdcutsService } from '../../core/services/prodcuts/prodcuts';
 
 @Component({
   selector: 'app-home',
-  imports: [CarouselModule, CommonModule],
+  imports: [CommonModule],
   templateUrl: './home.html',
   styleUrl: './home.css'
 })
@@ -17,36 +16,7 @@ export class Home implements OnInit, OnDestroy {
   categories!: category[];
   subCategories!: category[];
   selectedCategoryId!: string;
-  customOptions: OwlOptions = {
-    loop: true,
-    margin: 10,
-    mouseDrag: true,
-    touchDrag: true,
-    pullDrag: true,
-    dots: false,
-    navSpeed: 700,
-    navText: ['', ''],
-    nav: false,
-    autoplay: true,
-    autoplayTimeout: 3000,
-    autoplayHoverPause: true,
-    responsive: {
-      0: {
-        items: 1
-      },
-      350: {
-        items: 2
-      },
-      650: {
-        items: 3
-      },
-      900: {
-        items: 4
-      }
-    },
-    slideBy: 1
-  };
-
+ 
   constructor(private _categoryService: Categories, private productService: ProdcutsService) {
 
   }
