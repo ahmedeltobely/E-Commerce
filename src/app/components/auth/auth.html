@@ -1,0 +1,75 @@
+<div class="flex flex-col md:flex-row h-screen">
+<div class="w-full md:w-1/2 h-64 md:h-full lg:w-[417px] lg:m-[190px] lg:h-[256px] ">
+    <img src="auth.jpg" alt="Login Image" class="w-full h-full object-cover" />
+  </div>
+
+  <div class="w-full md:w-1/2 flex items-center justify-center px-4 py-8">
+    <div class="bg-white dark:bg-gray-900 shadow-md rounded-lg px-8 py-6 max-w-md w-full">
+      <h1 class="text-2xl font-bold text-center mb-6 dark:text-gray-200">
+        {{ mode === 'login' ? 'Welcome Back!' : 'Create an Account' }}
+      </h1>
+
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div *ngIf="mode === 'register'" class="mb-4">
+          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Name</label>
+          <input formControlName="name" type="text" class="form-input"
+            [ngClass]="{ 'border-red-500': f['name']['touched'] && f['name']['invalid'] }" />
+          <small *ngIf="f['name']?.touched && f['name']?.invalid" class="text-red-500">
+            Name is required (min 3 characters)
+          </small>
+        </div>
+
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Email</label>
+          <input formControlName="email" type="email" class="form-input"
+            [ngClass]="{ 'border-red-500': f['email']['touched'] && f['email']['invalid'] }" />
+          <small *ngIf="f['email']?.touched && f['email']?.invalid" class="text-red-500">
+            Valid email is required
+          </small>
+        </div>
+
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Password</label>
+          <input formControlName="password" type="password" class="form-input"
+            [ngClass]="{ 'border-red-500': f['password']['touched'] && f['password']['invalid'] }" />
+          <small *ngIf="f['password']?.touched && f['password']?.invalid" class="text-red-500">
+            Min 6 chars, uppercase, lowercase, number & special character.
+          </small>
+        </div>
+
+        <div *ngIf="mode === 'register'" class="mb-4">
+          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Confirm Password</label>
+          <input formControlName="rePassword" type="password" class="form-input"
+            [ngClass]="{ 'border-red-500': f['rePassword']['touched'] && f['rePassword']['invalid'] }" />
+          <small *ngIf="f['rePassword']?.touched && f['rePassword']?.errors?.['mismatch']" class="text-red-500">
+            Passwords do not match
+          </small>
+        </div>
+
+        <div *ngIf="mode === 'register'" class="mb-4">
+          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Phone</label>
+          <input formControlName="phone" type="text" class="form-input"
+            [ngClass]="{ 'border-red-500': f['phone']['touched'] && f['phone']['invalid'] }" />
+          <small *ngIf="f['phone']?.touched && f['phone']?.invalid" class="text-red-500">
+            Enter a valid Egyptian number (e.g. 010xxxxxxxx)
+          </small>
+        </div>
+
+        <div class="flex items-center justify-between mb-4">
+          <button type="button" class="text-indigo-600 hover:underline text-sm"
+            (click)="switchMode(mode === 'login' ? 'register' : 'login')">
+            {{ mode === 'login' ? 'Create Account' : 'Back to Login' }}
+          </button>
+          <a (click)="onNavigateToForgetPass()" *ngIf="mode === 'login'"  class="cursor-pointer text-xs text-indigo-500 hover:text-indigo-700">
+            Forgot Password?
+          </a>
+        </div>
+
+        <button type="submit" [disabled]="form.invalid"
+          class="w-full py-2 px-4 disabled:cursor-not-allowed bg-indigo-600 hover:bg-indigo-700 text-white rounded-md shadow-sm text-sm font-medium">
+          {{ mode === 'login' ? 'Login' : 'Register' }}
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

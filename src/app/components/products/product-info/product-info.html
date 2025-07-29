@@ -1,0 +1,88 @@
+<div *ngIf="product.data" class="max-w-5xl mx-auto p-6 mt-10 bg-white shadow-md rounded-xl">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+            <div class="border rounded-lg overflow-hidden">
+                <img [src]="selectedImage" [alt]="product.data.title" class="w-full h-[400px] object-cover">
+            </div>
+
+            <div class="grid grid-cols-4 gap-2 mt-4">
+                @for (img of product.data.images; track img) {
+                <img [src]="img" alt="Gallery image" [ngClass]="{ 'active-thumb': selectedImage === img }"
+                    (click)="selectImage(img)"
+                    class="h-20 w-full object-cover border rounded hover:scale-105 transition">
+                }
+            </div>
+        </div>
+
+        <div class="space-y-4">
+            <div class="flex justify-between">
+                <h2 class="text-2xl font-bold text-indigo-700">{{ product.data.title }}</h2>
+
+                <button (click)="toggleFavorite()" [ngClass]="{
+          'text-red-500': isFavorite,
+          'text-gray-400': !isFavorite
+        }" class="transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 fill-current" viewBox="0 0 24 24">
+                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 
+             2 5.42 4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09C13.09 
+             3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 
+             3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                    </svg>
+                </button>
+
+            </div>
+
+            <div class="flex items-center gap-3 text-sm text-gray-500">
+                <img [src]="product.data.brand.image" alt="brand" class="w-6 h-6 object-contain">
+                <span class="font-medium">{{ product.data.brand.name }}</span>
+                <span class="mx-2">•</span>
+                <span>{{ product.data.category.name }}</span>
+            </div>
+
+            <div class="flex items-center gap-1">
+                <ng-container *ngFor="let i of [1,2,3,4,5]">
+                    <svg [ngClass]="i <= filledStars ? 'text-yellow-400' : 'text-gray-300'"
+                        xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                        <path d="M10 15l-5.878 3.09 1.122-6.545L.488 6.91l6.561-.955L10 0l2.951 5.955 
+               6.561.955-4.756 4.635 1.122 6.545z" />
+                    </svg>
+                </ng-container>
+                <span class="text-sm text-gray-600 ml-2">
+                    {{ product.data.ratingsAverage }} ({{ product.data.ratingsQuantity }} reviews)
+                </span>
+            </div>
+
+
+            <div class="text-lg text-gray-800 space-y-1">
+                <div>
+                    <span class="font-semibold">Price:</span>
+                    <span *ngIf="product.data.price">
+                        <span class="line-through text-red-500 mr-2">${{ product.data.price }}</span>
+                        <span class="text-green-600 font-bold">${{ product.data.priceAfterDiscount }}</span>
+                    </span>
+                    <span *ngIf="!product.data.price">
+                        ${{ product.data.price }}
+                    </span>
+                </div>
+                <div><span class="font-semibold">Quantity:</span> {{ product.data.quantity }}</div>
+                <div><span class="font-semibold">Sold:</span> {{ product.data.sold }}</div>
+            </div>
+
+            <div class="text-sm text-gray-600">
+                <span class="font-medium">Subcategory:</span>
+                {{ product.data.subcategory[0].name }}
+            </div>
+
+            <div>
+                <h3 class="text-md font-semibold text-gray-700 mb-1">Description</h3>
+                <p class="text-sm text-gray-600 whitespace-pre-line">
+                    {{ product.data.description }}
+                </p>
+            </div>
+
+            <button *ngIf="product.data.quantity !== 0" (click)="addToCart(product.data._id)" class="mt-4 px-5 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition">
+                Add to Cart
+            </button>
+        </div>
+    </div>
+</div>

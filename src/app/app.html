@@ -1,0 +1,11 @@
+<div class="app-container flex flex-col min-h-screen">
+  <app-header></app-header>
+
+  <main class="app-content flex-grow">
+    <router-outlet></router-outlet>
+  </main>
+</div>
+
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="pacman" [fullScreen]="true">
+  <p style="color: white">Loading...</p>
+</ngx-spinner>

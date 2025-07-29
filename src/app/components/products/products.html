@@ -1,0 +1,38 @@
+<div class="mx-5 p-6">
+  <div class="my-10 text-center">
+    <h2 class="text-2xl font-bold text-indigo-600">Products</h2>
+    <svg class="m-auto mt-1 w-24 h-6 text-indigo-600" viewBox="0 0 100 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 10 C 25 0, 75 20, 100 10" stroke="currentColor" stroke-width="3" fill="transparent" stroke-linecap="round" />
+    </svg>
+  </div>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 p-4">
+    @for (product of products; track $index) {
+
+    <div  class="bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300">
+      <img [src]="product.imageCover" [alt]="product.title" class="w-full h-64 object-cover hover:scale-105 transition-transform duration-300">
+
+      <div class="p-5 space-y-2">
+        <div class="flex justify-between">
+          <h2 class="text-xl font-bold text-gray-800 truncate">{{ product.title }}</h2>
+          <span class="text-lg font-semibold text-indigo-600">${{ product.price }}</span>
+        </div>
+
+        <div class="flex items-center gap-2 text-sm text-gray-500">
+          <img [src]="product.brand.image" alt="brand" class="w-6 h-6 object-contain" />
+          <span>{{ product.brand.name }}</span>
+          <span class="mx-2">•</span>
+          <span>{{ product.category.name }}</span>
+        </div>
+
+        <p class="text-sm text-gray-600 line-clamp-2 mt-2">{{ product.description }}</p>
+
+        <button class="w-full mt-3 py-2 px-4 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition"
+        (click)="onViewProductInfo(product._id)">
+          View Product
+        </button>
+      </div>
+    </div>
+    }
+  </div>
+</div>

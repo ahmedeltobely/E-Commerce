@@ -1,0 +1,59 @@
+<div class="text-black px-4 md:px-20 shadow-header">
+  <mat-toolbar class="flex items-center">
+
+    <mat-icon>shopping_cart</mat-icon>
+    <span class="font-bold text-2xl ml-2 title">fresh cart</span>
+
+    <span class="flex-grow"></span>
+
+    <div class="hidden md:flex gap-2 items-center" *ngIf="_authService.isLoggedIn()">
+      <button mat-button routerLink="/home" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">Home</button>
+      <button mat-button routerLink="/brands" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">Brands</button>
+      <button mat-button routerLink="/products" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">Products</button>
+      <button mat-button routerLink="/cart" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
+         <mat-icon>shopping_cart</mat-icon>
+        <span class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center">
+          {{ cartLength }}
+        </span>
+      </button>
+      <button mat-button routerLink="/wishList" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
+         <mat-icon>favorite</mat-icon>
+        <span class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center">
+          {{ wishlistLength }}
+        </span>
+      </button>
+      <button mat-button (click)="logout()">
+         <mat-icon>logout</mat-icon>
+      </button>
+
+    </div>
+
+    <div class="md:hidden" *ngIf="_authService.isLoggedIn()">
+      <button mat-icon-button (click)="mobileMenuOpen = !mobileMenuOpen">
+        <mat-icon>{{ mobileMenuOpen ? 'close' : 'menu' }}</mat-icon>
+      </button>
+    </div>
+
+  </mat-toolbar>
+
+  <div *ngIf="mobileMenuOpen" class="flex flex-col md:hidden bg-white w-full px-4 py-2 border-t border-gray-300 shadow-md z-50">
+    <button mat-button routerLink="/home" (click)="mobileMenuOpen = false" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">Home</button>
+    <button mat-button routerLink="/brands" (click)="mobileMenuOpen = false" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">Brands</button>
+    <button mat-button routerLink="/products" (click)="mobileMenuOpen = false" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">Products</button>
+    <button mat-button routerLink="/cart" (click)="mobileMenuOpen = false" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
+         <mat-icon>shopping_cart</mat-icon>
+        <span class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center">
+          {{ cartLength }}
+        </span>
+      </button>
+      <button mat-button routerLink="/wishList" (click)="mobileMenuOpen = false" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
+         <mat-icon>favorite</mat-icon>
+        <span class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center">
+          {{ wishlistLength }}
+        </span>
+      </button>
+      <button mat-button (click)="logout()" (click)="mobileMenuOpen = false">
+         <mat-icon>logout</mat-icon>
+      </button>
+  </div>
+</div>
